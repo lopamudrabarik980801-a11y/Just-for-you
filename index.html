@@ -3,18 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Happy Birthday My Love!</title>
-  
-  <!-- Google Fonts & Canvas Confetti Library -->
-  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <title>10 Questions Every Couple Should Ask</title>
+
+  <!-- Google Fonts & Canvas Confetti -->
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
   <style>
     :root {
       --primary-color: #ff4b72;
       --secondary-color: #ff85a2;
-      --bg-gradient: linear-gradient(135deg, #ffe6ea 0%, #ffc3d0 100%);
-      --card-bg: rgba(255, 255, 255, 0.95);
+      --accent-color: #4a90e2;
+      --bg-gradient: linear-gradient(135deg, #fce4ec 0%, #ffe0b2 100%);
+      --card-bg: rgba(255, 255, 255, 0.96);
     }
 
     * {
@@ -30,46 +31,20 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      overflow-x: hidden;
       color: #333;
+      padding: 20px 10px;
     }
 
-    /* Falling Hearts Container */
-    #hearts-container {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 1;
-    }
-
-    .heart-drop {
-      position: absolute;
-      color: var(--primary-color);
-      animation: drop linear infinite;
-      user-select: none;
-    }
-
-    @keyframes drop {
-      0% { transform: translateY(-10vh) scale(0.5); opacity: 1; }
-      100% { transform: translateY(105vh) scale(1.2); opacity: 0; }
-    }
-
-    /* Section Cards Navigation */
     .page {
       display: none;
-      width: 90%;
-      max-width: 550px;
+      width: 100%;
+      max-width: 600px;
       background: var(--card-bg);
       padding: 30px 25px;
       border-radius: 20px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.12);
       text-align: center;
-      z-index: 10;
-      animation: fadeIn 0.6s ease-out forwards;
-      margin: 20px 0;
+      animation: fadeIn 0.4s ease-out forwards;
     }
 
     .page.active {
@@ -77,22 +52,59 @@
     }
 
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(15px); }
+      from { opacity: 0; transform: translateY(12px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
-    h2 {
+    .badge {
+      display: inline-block;
+      background: #fff0f3;
       color: var(--primary-color);
-      margin-bottom: 15px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      padding: 4px 14px;
+      border-radius: 20px;
+      margin-bottom: 12px;
+      border: 1px solid var(--secondary-color);
+    }
+
+    h1, h2 {
+      color: var(--primary-color);
+      margin-bottom: 12px;
     }
 
     p {
-      margin-bottom: 20px;
+      margin-bottom: 18px;
       line-height: 1.6;
-      font-size: 1.05rem;
+      font-size: 1.02rem;
     }
 
-    /* Buttons */
+    .quiz-options {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin: 20px 0;
+    }
+
+    .quiz-btn {
+      background: white;
+      border: 2px solid var(--secondary-color);
+      color: #333;
+      padding: 12px 18px;
+      border-radius: 12px;
+      font-size: 0.95rem;
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.2s ease;
+      font-weight: 500;
+    }
+
+    .quiz-btn:hover {
+      background: var(--secondary-color);
+      color: white;
+      transform: translateY(-1px);
+    }
+
     .btn {
       background: var(--primary-color);
       color: white;
@@ -104,7 +116,7 @@
       cursor: pointer;
       box-shadow: 0 4px 15px rgba(255, 75, 114, 0.4);
       transition: all 0.3s ease;
-      margin-top: 15px;
+      margin-top: 10px;
     }
 
     .btn:hover {
@@ -112,119 +124,28 @@
       transform: translateY(-2px);
     }
 
-    .kiss-btn {
-      background: linear-gradient(45deg, #ff4b72, #ff85a2);
-      font-size: 1.1rem;
-      animation: pulse 1.5s infinite;
-    }
-
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-      100% { transform: scale(1); }
-    }
-
-    /* Page 1: Timer & Wish */
-    #timer {
-      display: flex;
-      justify-content: center;
-      gap: 12px;
-      margin: 20px 0;
-    }
-
-    .timer-box {
-      background: white;
-      padding: 10px;
-      border-radius: 12px;
-      min-width: 65px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-    }
-
-    .timer-box span {
-      display: block;
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: var(--primary-color);
-    }
-
-    .timer-box label {
-      font-size: 0.75rem;
-      color: #777;
-    }
-
-    .handwriting {
-      font-family: 'Caveat', cursive;
-      font-size: 2.8rem;
-      color: var(--primary-color);
-      margin: 20px 0;
-      line-height: 1.2;
-    }
-
-    /* Interactive Image Wrapper */
-    .clickable-img-wrapper {
-      position: relative;
-      cursor: pointer;
-      overflow: hidden;
+    /* Explanation Box */
+    .answer-box {
+      background: #fdf2f4;
+      padding: 20px;
       border-radius: 15px;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+      border-left: 5px solid var(--primary-color);
       margin: 20px 0;
-    }
-
-    .clickable-img-wrapper img {
-      width: 100%;
-      height: auto;
-      display: block;
-      transition: transform 0.4s ease;
-    }
-
-    .clickable-img-wrapper:hover img {
-      transform: scale(1.04);
-    }
-
-    .click-hint {
-      position: absolute;
-      bottom: 12px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: rgba(0, 0, 0, 0.65);
-      color: white;
-      padding: 6px 16px;
-      border-radius: 20px;
-      font-size: 0.85rem;
-    }
-
-    /* Quiz Option Buttons */
-    .quiz-options {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      margin: 20px 0;
-    }
-
-    .quiz-btn {
-      background: white;
-      border: 2px solid var(--secondary-color);
-      color: #444;
-      padding: 12px 18px;
-      border-radius: 12px;
-      font-size: 0.95rem;
-      cursor: pointer;
       text-align: left;
-      transition: all 0.2s ease;
     }
 
-    .quiz-btn:hover {
-      background: var(--secondary-color);
-      color: white;
+    .answer-box h3 {
+      color: var(--primary-color);
+      margin-bottom: 8px;
     }
 
-    /* Modal / Popup Overlay */
+    /* Modal / Popup */
     .modal-overlay {
       display: none;
       position: fixed;
       top: 0; left: 0;
       width: 100%; height: 100%;
-      background: rgba(0,0,0,0.5);
+      background: rgba(0,0,0,0.55);
       justify-content: center;
       align-items: center;
       z-index: 100;
@@ -235,8 +156,8 @@
       padding: 25px;
       border-radius: 20px;
       text-align: center;
-      max-width: 320px;
-      width: 85%;
+      max-width: 360px;
+      width: 88%;
       animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
 
@@ -250,326 +171,233 @@
       margin-bottom: 10px;
     }
 
-    /* Zoom-In Kiss Overlay */
-    #zoom-kiss-container {
-      display: none;
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw; height: 100vh;
-      background: rgba(255, 230, 234, 0.7);
-      backdrop-filter: blur(4px);
-      justify-content: center;
-      align-items: center;
-      z-index: 200;
-      pointer-events: none;
-    }
-
-    .zoom-kiss-emoji {
-      font-size: 12rem;
-    }
-
-    .zoom-active {
-      animation: zoomKissAnim 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-    }
-
-    @keyframes zoomKissAnim {
-      0% { transform: scale(0.1) rotate(-20deg); opacity: 0; }
-      60% { transform: scale(1.3) rotate(10deg); opacity: 1; }
-      80% { transform: scale(1) rotate(0deg); opacity: 1; }
-      100% { transform: scale(2.5) rotate(0deg); opacity: 0; }
-    }
-
-    /* Slideshow Component */
-    .slideshow-container {
-      position: relative;
-      border-radius: 15px;
-      overflow: hidden;
-      margin: 20px 0;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
-      background: #000;
-      cursor: pointer;
-    }
-
-    .slide-img {
+    .progress-bar {
       width: 100%;
-      height: 320px;
-      object-fit: cover;
-      display: none;
+      background: #eee;
+      height: 8px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      overflow: hidden;
     }
 
-    .slide-img.active {
-      display: block;
-    }
-
-    .slide-counter {
-      margin-top: 8px;
-      font-size: 0.85rem;
-      color: #666;
-    }
-
-    /* Letter Box Styling (Page 11) */
-    .wish-paragraph {
-      text-align: left;
-      background: #fffafb;
-      padding: 25px;
-      border-radius: 15px;
-      border: 2px dashed var(--secondary-color);
-      border-left: 5px solid var(--primary-color);
-      font-size: 1rem;
-      line-height: 1.8;
-      color: #444;
-      margin: 20px 0;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+    .progress-fill {
+      height: 100%;
+      background: var(--primary-color);
+      width: 0%;
+      transition: width 0.3s ease;
     }
   </style>
 </head>
 <body>
 
-  <!-- Audio Element -->
-  <audio id="bg-audio" loop preload="auto">
-    <source src="Tum Ho To.mp3" type="audio/mpeg">
-  </audio>
-
-  <!-- Falling Hearts Animation Container -->
-  <div id="hearts-container"></div>
-
-  <!-- ZOOM-IN KISS OVERLAY -->
-  <div id="zoom-kiss-container">
-    <div id="zoom-kiss-emoji" class="zoom-kiss-emoji">😘</div>
-  </div>
-
-  <!-- POPUP MODAL -->
+  <!-- POPUP MODAL FOR FUNNY ANALOGIES -->
   <div id="popup-modal" class="modal-overlay">
     <div class="modal-content">
-      <div id="modal-emoji" class="modal-emoji">😂</div>
-      <h3 id="modal-text">Message</h3>
-      <button class="btn" style="padding: 6px 20px; font-size: 0.9rem;" onclick="closeModal()">OK</button>
+      <div id="modal-emoji" class="modal-emoji">🤪</div>
+      <p id="modal-text" style="font-weight: 500; margin-bottom: 15px;">Funny response here...</p>
+      <button class="btn" style="padding: 6px 22px; font-size: 0.9rem;" onclick="closeModal()">Try Again / Understood!</button>
     </div>
   </div>
 
-  <!-- PAGE 1: TIMER & WISH -->
-  <div id="page1" class="page active">
-    <h2>Countdown to Your Special Day! ⏰</h2>
-    <p>Midnight, 15th August is almost here...</p>
-
-    <div id="timer">
-      <div class="timer-box"><span id="hours">00</span><label>Hours</label></div>
-      <div class="timer-box"><span id="minutes">00</span><label>Minutes</label></div>
-      <div class="timer-box"><span id="seconds">00</span><label>Seconds</label></div>
-    </div>
-
-    <div id="birthday-wish" style="display: none;">
-      <div class="handwriting">Happy birthday my love ❤️</div>
-    </div>
-
-    <button id="p1-next-btn" class="btn" onclick="goToPage(2)">
-      Get ready for the surprise ✨
-    </button>
-  </div>
-
-  <!-- PAGE 2: MEMORIES INTRO -->
-  <div id="page2" class="page">
-    <h2>Let's go back to some memories 📸</h2>
-    <p>Click on our photo to play a fun game!</p>
-
-    <div class="clickable-img-wrapper" onclick="goToPage(3)">
-      <img src="Zero.jpg" alt="Our Memory" onerror="this.src='https://via.placeholder.com/400x300?text=Zero.jpg'">
-      <div class="click-hint">Tap photo to play 💖</div>
-    </div>
-  </div>
-
-  <!-- PAGE 3: QUESTION 1 -->
-  <div id="page3" class="page">
-    <h2>Question 1 💭</h2>
-    <p style="font-weight: 600;">How much do I love you?</p>
-
-    <div class="quiz-options">
-      <button class="quiz-btn" onclick="triggerLaugh('🤣', 'Haha nice try!')">I. More than gupchup</button>
-      <button class="quiz-btn" onclick="triggerLaugh('😜', 'Momo lover alert!')">II. More than momo</button>
-      <button class="quiz-btn" onclick="triggerLaugh('😆', 'Calculating food math...')">III. More than gupchup but less than momo</button>
-      <button class="quiz-btn" onclick="triggerLaugh('😹', 'Biryani wins always?')">IV. More than momo but less than Biryani</button>
-    </div>
-
-    <button class="btn" onclick="goToPage(4)">See Answer 🤫</button>
-  </div>
-
-  <!-- PAGE 4: QUESTION 1 REVEAL -->
-  <div id="page4" class="page">
-    <h2>The Real Answer 🤫</h2>
-    <div style="background: white; padding: 20px; border-radius: 15px; border: 2px dashed var(--primary-color); margin: 20px 0;">
-      <p style="font-size: 1.15rem; font-weight: 600; color: var(--primary-color); margin-bottom: 0;">
-        "I love you more than any food... You are my happiness, you are my punching bag, you are my world 🌍"
-      </p>
-    </div>
-
-    <button class="btn" onclick="goToPage(5)">Question 2 ➡️</button>
-  </div>
-
-  <!-- PAGE 5: QUESTION 2 -->
-  <div id="page5" class="page">
-    <h2>Question 2 🎁</h2>
-    <p style="font-weight: 600;">On your birthday what do you want as a gift?</p>
-
-    <div class="quiz-options">
-      <button class="quiz-btn" onclick="showModal('👶', 'Chhoti Bacchi Ho Kya')">I. Toy Bike/car</button>
-      <button class="quiz-btn" onclick="showModal('💸', '5k ra kinilu au kete darkar!')">II. T shirt</button>
-      <button class="quiz-btn" onclick="showModal('👃', 'Tate perfume darkar nai')">III. Man\'s perfume</button>
-      <button class="quiz-btn" onclick="showModal('😉', 'To size jana nahin')">IV. Shoe</button>
-    </div>
-
-    <button class="btn" onclick="goToPage(6)">Question 3 ➡️</button>
-  </div>
-
-  <!-- PAGE 6: QUESTION 3 -->
-  <div id="page6" class="page">
-    <h2>Question 3 👑</h2>
-    <p style="font-weight: 600;">Who is the boss in this relationship?</p>
-
-    <div class="quiz-options">
-      <button class="quiz-btn" onclick="showModal('👑', 'Obviously me!')">I. Obviously me 👑</button>
-      <button class="quiz-btn" onclick="showModal('🤪', 'In your dreams!')">II. You 😜</button>
-      <button class="quiz-btn" onclick="showModal('😼', 'My mood my rule')">III. My mood </button>
-      <button class="quiz-btn" onclick="showModal('🗳️', '1 voter, 1 decision!')">IV. It\'s a full-time democracy with 1 voter!</button>
-    </div>
-
-    <button class="btn" onclick="goToPage(7)">Question 4 ➡️</button>
-  </div>
-
-  <!-- PAGE 7: QUESTION 4 -->
-  <div id="page7" class="page">
-    <h2>Question 4 ✨</h2>
-    <p style="font-weight: 600;">What is my absolute favorite thing about you?</p>
-
-    <div class="quiz-options">
-      <button class="quiz-btn" onclick="showModal('😁', 'Your smile melts my heart!')">I. Your gorgeous smile 😁</button>
-      <button class="quiz-btn" onclick="showModal('🤗', 'Best hugs in the world!')">II. Your warm hugs 🤗</button>
-      <button class="quiz-btn" onclick="showModal('🤪', 'So cute when jealous!')">III. How cute you look when you get jealous 😛</button>
-      <button class="quiz-btn" onclick="showModal('🥰', 'All of the above, always!')">IV. All of the above (and your wallet 💸)</button>
-    </div>
-
-    <button class="btn" onclick="goToPage(8)">Question 5 ➡️</button>
-  </div>
-
-  <!-- PAGE 8: QUESTION 5 -->
-  <div id="page8" class="page">
-    <h2>Question 5 🏝️</h2>
-    <p style="font-weight: 600;">If we were stranded on a deserted island, who would survive longer?</p>
-
-    <div class="quiz-options">
-      <button class="quiz-btn" onclick="showModal('⛺', 'Survival expert in action!')">I. Me, I\'m the survival expert ⛺</button>
-      <button class="quiz-btn" onclick="showModal('🤲', 'Sharing is caring!')">II. You, because I\'d share my food with you</button>
-      <button class="quiz-btn" onclick="showModal('🗺️', 'Lost while arguing!')">III. Neither, we\'d argue about which direction to walk 🗺️</button>
-      <button class="quiz-btn" onclick="showModal('🥟', 'Traded for momos!')">IV. You, because you\'d trade me for a plate of momos 🥟</button>
-    </div>
-
-    <button class="btn" onclick="goToPage(9)">Question 6 ➡️</button>
-  </div>
-
-  <!-- PAGE 9: QUESTION 6 -->
-  <div id="page9" class="page">
-    <h2>Question 6 💖</h2>
-    <p style="font-weight: 600;">What was the exact moment I fell in love with you?</p>
-
-    <div class="quiz-options">
-      <button class="quiz-btn" onclick="showModal('✨', 'Love at first sight!')">I. When you make me feel comfortable ✨</button>
-      <button class="quiz-btn" onclick="showModal('😂', 'Laughter brings us together!')">II. When you made me laugh until my stomach hurt 😂</button>
-      <button class="quiz-btn" onclick="showModal('🥺', 'Your care means everything!')">III. When you cared for me when I was down 🥺</button>
-      <button class="quiz-btn" onclick="showModal('💞', 'Every single day!')">IV. Every single day, over and over again 💞</button>
-    </div>
-
-    <button class="btn" onclick="goToPage(10)">Question 7 ➡️</button>
-  </div>
-
-  <!-- PAGE 10: QUESTION 7 -->
-  <div id="page10" class="page">
-    <h2>Question 7 📱</h2>
-    <p style="font-weight: 600;">What is our official love language?</p>
-
-    <div class="quiz-options">
-      <button class="quiz-btn" onclick="showModal('👩‍❤️‍👨', Physical touch!')">I. Cuddles,kisses always 😍</button>
-      <button class="quiz-btn" onclick="showModal('🍟', 'Food theft alert!')">II. Stealing each other\'s food 🍟</button>
-      <button class="quiz-btn" onclick="showModal('📞', 'Hours fly by!')">III. Non-stop long phone calls 📞</button>
-      <button class="quiz-btn" onclick="showModal('👩‍❤️‍👨', 'love + Food + Phone Calls = Us!')">IV. All of the above! 👩‍❤️‍👨</button>
-    </div>
-
-    <button class="btn" onclick="goToPage(11)">Walk Down Memory Lane 📸</button>
-  </div>
-
-  <!-- PAGE 11: MEMORY LANE (PHOTO SLIDESHOW ONLY) -->
-  <div id="page11" class="page">
-    <h2>Memory Lane 🎞️</h2>
-    <p>Tap the image to see our special moments!</p>
-
-    <div class="slideshow-container" onclick="nextSlide()">
-      <img class="slide-img active" src="One.jpg" alt="Memory 1" onerror="this.src='https://via.placeholder.com/400x300?text=One.jpg'">
-      <img class="slide-img" src="Two.jpg" alt="Memory 2" onerror="this.src='https://via.placeholder.com/400x300?text=Two.jpg'">
-      <img class="slide-img" src="Three.jpg" alt="Memory 3" onerror="this.src='https://via.placeholder.com/400x300?text=Three.jpg'">
-      <img class="slide-img" src="Four.jpg" alt="Memory 4" onerror="this.src='https://via.placeholder.com/400x300?text=Four.jpg'">
-    </div>
-    <div id="slide-counter" class="slide-counter">Photo 1 of 4 (Click photo to next)</div>
-
-    <button class="btn" style="margin-top: 25px;" onclick="goToPage(12)">Read My Letter 💌</button>
-  </div>
-
-  <!-- PAGE 12: SEPARATE LETTER PAGE -->
-  <div id="page12" class="page">
-    <h2>A Special Letter For You 💌</h2>
-
-    <div class="wish-paragraph">
-      Happy Birthday, my love! ❤️<br><br>
-      On your special day, I wish you all the success, happiness, and joy in the world. May you get everything your heart truly desires. 
-      I wish that one day you marry me, and we get to celebrate each other's birthdays just like this every single year... until we both turn very, very, very old! 👵👴<br><br>
-      *(Unless, of course, you forget my birthday again! 😜)*
-    </div>
-
-    <!-- Kiss Emoji Button -->
-    <button class="btn kiss-btn" onclick="sendKiss()">Click for a Kiss 😘</button>
-  </div>
+  <!-- CONTAINER FOR DYNAMICALLY GENERATED PAGES -->
+  <div id="quiz-container"></div>
 
   <script>
-    // Global Functions needed for inline onclick handlers
-    function startAudio() {
-      const audio = document.getElementById('bg-audio');
-      if (audio) {
-        audio.play().catch(() => {});
+    // 10 RELATIONSHIP QUESTIONS WITH CORRECT ANSWERS, EXPLANATIONS, AND FUNNY ANALOGIES
+    const quizData = [
+      {
+        q: "1. How do we best handle conflict when we disagree?",
+        options: [
+          { text: "A) Silent treatment for 3 business days", analogy: "Ah yes, silent treatment... like ignoring a check-engine light until your entire car explodes on the highway! 🚗💥", correct: false },
+          { text: "B) Screaming till someone wins the debate championship", analogy: "Yelling isn't communication; it's just aggressive vocal warmup for a musical nobody bought tickets to. 🎭🔊", correct: false },
+          { text: "C) Talk calmly, attack the problem (not each other), and take breaks if heated", analogy: "", correct: true },
+          { text: "D) Pretend nothing happened and sweep it under the rug", analogy: "Keep sweeping under that rug and eventually you'll trip over a mountain of unaddressed resentment! 🧹⛰️", correct: false }
+        ],
+        insight: "Correct answer: Option C! Healthy couples don't avoid conflict; they learn how to disagree without tearing each other down."
+      },
+      {
+        q: "2. What are our financial goals and spending habits?",
+        options: [
+          { text: "A) Buy whatever we want and hope card reader says 'APPROVED'", analogy: "Swiping blind is like driving blindfolded—it's super fun until the collision statement arrives! 💳🙈", correct: false },
+          { text: "B) Openly discuss budget, savings, debt, and shared expenses", analogy: "", correct: true },
+          { text: "C) One person handles all money and hides bank statements", analogy: "Financial secrecy is like playing Monopoly where one player hides the board under their shirt. 🎩💸", correct: false },
+          { text: "D) Never talk about money because it's awkward", analogy: "Ignoring money talk doesn't make bills vanish—it just guarantees a surprise plot twist later! 🎟️📉", correct: false }
+        ],
+        insight: "Correct answer: Option B! Money issues are one of the leading causes of relationship strain. Transparency builds long-term trust."
+      },
+      {
+        q: "3. What are our non-negotiables regarding future family & kids?",
+        options: [
+          { text: "A) Align on whether we want kids, timing, and parenting values", analogy: "", correct: true },
+          { text: "B) Assume the other person will change their mind later", analogy: "Hoping someone will radically change their life dream is like buying a cat and expecting it to bark! 🐱🐶", correct: false },
+          { text: "C) Let our relatives decide our entire family timeline", analogy: "If you let relatives run your household, you're not in a relationship; you're in a family sitcom! 📺🛋️", correct: false },
+          { text: "D) Avoid the topic until we're at the altar", analogy: "Waiting until marriage to discuss kids is like checking if a plane has wings after takeoff! ✈️💨", correct: false }
+        ],
+        insight: "Correct answer: Option A! Having mismatched fundamental life goals creates unnecessary heartache down the road."
+      },
+      {
+        q: "4. How do we divide household responsibilities and chores?",
+        options: [
+          { text: "A) Whoever gets annoyed by mess first does all the work", analogy: "That's not a partnership; that's a psychological game of dirty-dish chicken! 🧽🐔", correct: false },
+          { text: "B) One person cooks, cleans, and manages everything while the other naps", analogy: "Unless you signed up to be an unpaid hotel maid, this contract needs immediate revision! 🏨🧹", correct: false },
+          { text: "C) Create a fair, clear division of labor based on schedules", analogy: "", correct: true },
+          { text: "D) Leave laundry in the basket until it gains sentience", analogy: "When your laundry pile starts asking for its own coffee, you've waited way too long! 🧺☕", correct: false }
+        ],
+        insight: "Correct answer: Option C! Shared effort in domestic life prevents burnout and resentment."
+      },
+      {
+        q: "5. What are our expectations around personal space and independent time?",
+        options: [
+          { text: "A) We must do every single activity together 24/7", analogy: "Glueing yourselves together sounds romantic until someone needs 10 minutes of peace and quiet! 👯‍♂️🔒", correct: false },
+          { text: "B) Balance quality time together with space for individual hobbies & friends", analogy: "", correct: true },
+          { text: "C) Never check in or share plans with each other", analogy: "Total detachment isn't freedom—it's just living with a roommate who eats your leftovers! 🍕👻", correct: false },
+          { text: "D) Get jealous whenever the other hangs out with friends", analogy: "Jealousy of outside friendships is like locking a bird in a cage and expecting it to sing happy songs! 🦜🗝️", correct: false }
+        ],
+        insight: "Correct answer: Option B! Healthy relationships consist of two distinct individuals who complement each other, not swallow each other whole."
+      },
+      {
+        q: "6. How do we show and receive love (Love Languages)?",
+        options: [
+          { text: "A) Assume my partner loves things the exact same way I do", analogy: "Giving someone gifts when they want quality time is like giving a dog an apple—nice try, wrong target! 🐶🍎", correct: false },
+          { text: "B) Expect my partner to read my mind without telling them", analogy: "Expecting mind-reading is like ordering in a restaurant by staring silently at the waiter! 🍽️🔮", correct: false },
+          { text: "C) Learn each other's primary love language and actively practice it", analogy: "", correct: true },
+          { text: "D) Love language is just marketing; ignore emotional needs", analogy: "Dismissing emotional needs is like refusing to put oil in your car because 'oil is just a marketing trick.' 🏎️🛢️", correct: false }
+        ],
+        insight: "Correct answer: Option C! Understanding how your partner feels valued keeps emotional connection strong over time."
+      },
+      {
+        q: "7. How will we handle boundaries with extended family & in-laws?",
+        options: [
+          { text: "A) Stand as a united front and set clear, respectful boundaries together", analogy: "", correct: true },
+          { text: "B) Let parents make major decisions for our relationship", analogy: "Letting parents run your relationship means there are 4 people steering one steering wheel! 🚗💥", correct: false },
+          { text: "C) Vent publicly to family every time we have a minor disagreement", analogy: "Venting relationship drama to family is like inviting a stadium audience to referee your bedroom talks! 🏟️📣", correct: false },
+          { text: "D) Cut off all family completely without discussing why", analogy: "Ghosting family without reason is like dropping a smoke bomb and running out of your own living room! 💨🚪", correct: false }
+        ],
+        insight: "Correct answer: Option A! Your relationship priority must be each other while maintaining healthy boundaries with extended family."
+      },
+      {
+        q: "8. What are our career ambitions and how do we support each other's growth?",
+        options: [
+          { text: "A) My career is the main priority; yours is optional", analogy: "Treating your partner's career as a side-quest is a fast track to resentment village! 🎮🚩", correct: false },
+          { text: "B) Encourage each other's goals and plan relocations/sacrifices jointly", analogy: "", correct: true },
+          { text: "C) Discourage ambitious goals because change feels scary", analogy: "Clipping your partner's wings so they don't fly away just leaves you both grounded in sadness! ✂️🕊️", correct: false },
+          { text: "D) Never talk about work or professional dreams", analogy: "Ignoring career dreams is like pretending 40+ hours of your partner's week simply doesn't exist! ⏱️💼", correct: false }
+        ],
+        insight: "Correct answer: Option B! Great partners lift each other up and adapt together as careers evolve."
+      },
+      {
+        q: "9. How do we keep physical and emotional intimacy alive over time?",
+        options: [
+          { text: "A) Expect romance to stay effortless without any deliberate work", analogy: "Expecting effortlessness in long-term romance is like expecting a garden to stay beautiful without water! 🥀🚿", correct: false },
+          { text: "B) Communicate openly about intimacy, desires, and keep dating each other", analogy: "", correct: true },
+          { text: "C) Stop going on dates once the relationship is official", analogy: "Stopping date nights after getting official is like cancelling your gym membership the second you hit your goal! 🏋️‍♂️🍟", correct: false },
+          { text: "D) Rely strictly on physical passion and ignore emotional closeness", analogy: "Physical connection without emotional intimacy is like a high-speed car with no steering wheel! 🏎️⚠️", correct: false }
+        ],
+        insight: "Correct answer: Option B! Intimacy takes conscious effort, regular date nights, and open dialogue."
+      },
+      {
+        q: "10. What are our core personal values, beliefs, and ethics?",
+        options: [
+          { text: "A) Discuss moral values, ethics, and life philosophy to ensure core alignment", analogy: "", correct: true },
+          { text: "B) Values don't matter as long as we both like the same TV shows", analogy: "Bingeing the same Netflix series won't save you when life throws a major moral dilemma! 📺🌪️", correct: false },
+          { text: "C) Force the other person to adopt 100% of my political/moral views", analogy: "Demanding total conformity isn't love; that's running a political re-education camp! ⛺📢", correct: false },
+          { text: "D) Hope that major value differences will magically disappear", analogy: "Ignoring core value conflicts is like building a house on quicksand and hoping it stays level! 🏜️🏠", correct: false }
+        ],
+        insight: "Correct answer: Option A! Shared core values create the bedrock for a resilient, lifelong partnership."
       }
+    ];
+
+    // RENDER QUIZ PAGES DYNAMICALLY
+    function renderQuiz() {
+      const container = document.getElementById('quiz-container');
+      let html = '';
+
+      // Welcome Page
+      html += `
+        <div id="page-0" class="page active">
+          <span class="badge">Couples Relationship Guide</span>
+          <h1>10 Questions Every Couple Should Ask 💖</h1>
+          <p>Building a lasting relationship requires asking the right questions. Test your relationship IQ through these 10 core topics!</p>
+          <p style="font-size:0.9rem; color:#666;">Choose the right answer for each question. Watch out for funny analogies if you pick the wrong ones! 😜</p>
+          <button class="btn" onclick="goToPage(1)">Start Question 1 🚀</button>
+        </div>
+      `;
+
+      // 10 Question Pages
+      quizData.forEach((qData, index) => {
+        const pageNum = index + 1;
+        const progressPercent = (pageNum / quizData.length) * 100;
+
+        html += `
+          <div id="page-${pageNum}" class="page">
+            <div class="progress-bar"><div class="progress-fill" style="width: ${progressPercent}%;"></div></div>
+            <span class="badge">Question ${pageNum} of ${quizData.length}</span>
+            <h2>${qData.q}</h2>
+            <p style="color:#666; font-size:0.9rem;">Select the option you think is essential for a strong relationship:</p>
+
+            <div class="quiz-options">
+              ${qData.options.map((opt, optIdx) => `
+                <button class="quiz-btn" onclick="handleOptionClick(${pageNum}, ${opt.correct}, '${escapeQuotes(opt.analogy)}')">
+                  ${opt.text}
+                </button>
+              `).join('')}
+            </div>
+
+            <div id="insight-${pageNum}" class="answer-box" style="display:none;">
+              <h3>Relationship Insight ✨</h3>
+              <p style="margin-bottom:0;">${qData.insight}</p>
+            </div>
+
+            <button id="next-btn-${pageNum}" class="btn" style="display:none;" onclick="goToPage(${pageNum + 1})">
+              ${pageNum === 10 ? 'Finish Quiz 🎉' : 'Next Question ➡️'}
+            </button>
+          </div>
+        `;
+      });
+
+      // Completion Page
+      html += `
+        <div id="page-11" class="page">
+          <span class="badge">Congratulations! 🏆</span>
+          <h1>You Completed All 10 Questions! ❤️</h1>
+          <p>Great relationships aren't built on finding a perfect person—they're built on open communication, mutual respect, and continuous alignment.</p>
+          <div style="background:#fff0f3; padding:20px; border-radius:15px; border:2px dashed var(--primary-color); margin:20px 0;">
+            <p style="font-weight:600; color:var(--primary-color); margin:0;">
+              "The best time to ask big questions is before small differences turn into big obstacles." 💬✨
+            </p>
+          </div>
+          <button class="btn" onclick="goToPage(0)">Restart Quiz 🔄</button>
+        </div>
+      `;
+
+      container.innerHTML = html;
     }
 
-    function createHearts() {
-      const container = document.getElementById('hearts-container');
-      if (!container) return;
-      const heartSymbols = ['❤️', '💖', '💕', '💗', '🌸'];
-      for (let i = 0; i < 25; i++) {
-        const heart = document.createElement('div');
-        heart.className = 'heart-drop';
-        heart.innerText = heartSymbols[Math.floor(Math.random() * heartSymbols.length)];
-        heart.style.left = Math.random() * 100 + 'vw';
-        heart.style.animationDuration = (Math.random() * 3 + 3) + 's';
-        heart.style.animationDelay = (Math.random() * 5) + 's';
-        heart.style.fontSize = (Math.random() * 15 + 15) + 'px';
-        container.appendChild(heart);
-      }
+    function escapeQuotes(str) {
+      return str.replace(/'/g, "\\'").replace(/"/g, '\\"');
     }
 
-    function launchConfetti() {
-      if (typeof confetti === 'function') {
-        confetti({
-          particleCount: 80,
-          spread: 70,
-          origin: { y: 0.6 }
-        });
+    function handleOptionClick(pageNum, isCorrect, analogy) {
+      if (isCorrect) {
+        // Correct Answer Selected
+        document.getElementById(`insight-${pageNum}`).style.display = 'block';
+        document.getElementById(`next-btn-${pageNum}`).style.display = 'inline-block';
+        launchConfetti();
+      } else {
+        // Wrong Answer Selected - Show Funny Analogy
+        showModal('🤪', analogy);
       }
     }
 
     function goToPage(pageNum) {
       document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
-      const targetPage = document.getElementById('page' + pageNum);
+      const targetPage = document.getElementById(`page-${pageNum}`);
       if (targetPage) {
         targetPage.classList.add('active');
       }
       window.scrollTo(0, 0);
 
-      if (pageNum === 4) {
+      if (pageNum === 11) {
         launchConfetti();
       }
     }
@@ -584,72 +412,19 @@
       document.getElementById('popup-modal').style.display = 'none';
     }
 
-    function triggerLaugh(emoji, text) {
-      const faces = ['🤣', '😂', '😹', '😆', '😜'];
-      const randomEmoji = faces[Math.floor(Math.random() * faces.length)];
-      showModal(randomEmoji, text);
-    }
-
-    function sendKiss() {
-      const zoomContainer = document.getElementById('zoom-kiss-container');
-      const zoomEmoji = document.getElementById('zoom-kiss-emoji');
-      
-      zoomContainer.style.display = 'flex';
-      zoomEmoji.classList.remove('zoom-active');
-      void zoomEmoji.offsetWidth; // force reflow
-      zoomEmoji.classList.add('zoom-active');
-
-      setTimeout(() => {
-        zoomContainer.style.display = 'none';
-        showModal('😘💋', 'MWAHHH! Sending you the biggest birthday kiss! I love you so much! ❤️✨');
-        launchConfetti();
-      }, 1100);
-    }
-
-    let currentSlide = 0;
-    function nextSlide() {
-      const slides = document.querySelectorAll('.slide-img');
-      if (slides.length === 0) return;
-      slides[currentSlide].classList.remove('active');
-      currentSlide = (currentSlide + 1) % slides.length;
-      slides[currentSlide].classList.add('active');
-      document.getElementById('slide-counter').innerText = `Photo ${currentSlide + 1} of ${slides.length} (Click photo to next)`;
-    }
-
-    function startTimer() {
-      const now = new Date();
-      let targetYear = now.getFullYear();
-      let targetDate = new Date(targetYear, 7, 15, 0, 0, 0);
-
-      if (now > targetDate) {
-        targetDate = new Date(targetYear + 1, 7, 15, 0, 0, 0);
+    function launchConfetti() {
+      if (typeof confetti === 'function') {
+        confetti({
+          particleCount: 60,
+          spread: 60,
+          origin: { y: 0.6 }
+        });
       }
-
-      setInterval(() => {
-        const current = new Date().getTime();
-        const distance = targetDate.getTime() - current;
-
-        if (distance <= 0) {
-          document.getElementById('timer').style.display = 'none';
-          document.getElementById('birthday-wish').style.display = 'block';
-        } else {
-          const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-          const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-          const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-          document.getElementById('hours').innerText = String(hours).padStart(2, '0');
-          document.getElementById('minutes').innerText = String(minutes).padStart(2, '0');
-          document.getElementById('seconds').innerText = String(seconds).padStart(2, '0');
-        }
-      }, 1000);
     }
 
-    // Initialize on page load
-    document.addEventListener('DOMContentLoaded', () => {
-      createHearts();
-      startTimer();
-      document.body.addEventListener('click', startAudio, { once: true });
-    });
+    // Initialize Quiz on load
+    document.addEventListener('DOMContentLoaded', renderQuiz);
   </script>
 </body>
 </html>
+
